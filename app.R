@@ -27,13 +27,13 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                     
                     
                     selectInput("Empleado",
-                                label = "El deudor está empleado?",
+                                label = "El deudor est\u00e1 empleado?",
                                 choices = list('No' = 0,
                                                'Si'= 1),
                                 selected = 'Si'),
                     
                     numericInput("Tiempo_empleo", 
-                                 label = "Cantidad de años empleado en el puesto actual?", 
+                                 label = "Cantidad de a\u00f1os empleado en el puesto actual?", 
                                  value = 4,
                                  step = 1),
                     
@@ -42,7 +42,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                                  value = 145),
                     
                     numericInput("Valor_prestamo", 
-                                 label = "Valor del préstamo", 
+                                 label = "Valor del pr\u00e9stamo", 
                                  value = 2600),
                     
                     numericInput("Cuentas_otros", 
@@ -73,7 +73,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                 
                 mainPanel(
                     
-                    tags$label(h3('Estado de la aplicación')), # Output Text Box
+                    tags$label(h3('Estado de la aplicaci\u00f3n')), # Output Text Box
                     verbatimTextOutput('contents'),
                     tableOutput('tabledata'), # Tabla de predicciones
                     gaugeOutput("gauge"),
@@ -123,7 +123,7 @@ server<- function(input, output, session) {
                                          colors = c("success", "warning", "danger" = 'red')), symbol = '%', label = paste("Peligro de default"))
         })
         
-        Output <- data.frame(Predicción = prediccion, `Probabilidad de Default` = paste0(round(predict(fit_rf_balanced,test, type = 'prob')$`1`,3)), check.names = FALSE)
+        Output <- data.frame(Prediccion = prediccion, `Probabilidad de Default` = paste0(round(predict(fit_rf_balanced,test, type = 'prob')$`1`,3)), check.names = FALSE)
         
         
     })
@@ -131,9 +131,9 @@ server<- function(input, output, session) {
     # Status/Output Text Box
     output$contents <- renderPrint({
         if (input$submitbutton>0) { 
-            isolate(cat("Predicción completada"))
+            isolate(cat("Predicci\u00f3n completada"))
         } else {
-            return(cat("La app está lista para predecir"))
+            return(cat("La app est\u00e1 lista para predecir"))
         }
     })
     
