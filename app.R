@@ -4,8 +4,9 @@ if(!require(shinythemes)) install.packages("shinythemes", repos = "http://cran.u
 if(!require(data.table)) install.packages("data.table", repos = "http://cran.us.r-project.org")
 if(!require(flexdashboard)) install.packages("flexdashboard", repos = "http://cran.us.r-project.org")
 
+model_file_url <- "https://github.com/joaquinloncon/credit_scoring_app/blob/main/fit_rf_balanced.Rda?raw=true"
+load(url(model_file_url))
 
-load('fit_rf_balanced.Rda') # EL MODELO DEBE ESTAR EN LA CARPETA
 css <- HTML("
 .html-widget.gauge svg {
   height: 400px;
@@ -26,13 +27,13 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                     
                     
                     selectInput("Empleado",
-                                label = "El deudor est· empleado?",
+                                label = "El deudor est√° empleado?",
                                 choices = list('No' = 0,
                                                'Si'= 1),
                                 selected = 'Si'),
                     
                     numericInput("Tiempo_empleo", 
-                                 label = "Cantidad de aÒos empleado en el puesto actual?", 
+                                 label = "Cantidad de a√±os empleado en el puesto actual?", 
                                  value = 4,
                                  step = 1),
                     
@@ -41,7 +42,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                                  value = 145),
                     
                     numericInput("Valor_prestamo", 
-                                 label = "Valor del prÈstamo", 
+                                 label = "Valor del pr√©stamo", 
                                  value = 2600),
                     
                     numericInput("Cuentas_otros", 
@@ -72,7 +73,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                 
                 mainPanel(
                     
-                    tags$label(h3('Estado de la aplicaciÛn')), # Output Text Box
+                    tags$label(h3('Estado de la aplicaci√≥n')), # Output Text Box
                     verbatimTextOutput('contents'),
                     tableOutput('tabledata'), # Tabla de predicciones
                     gaugeOutput("gauge"),
@@ -122,7 +123,7 @@ server<- function(input, output, session) {
                                          colors = c("success", "warning", "danger" = 'red')), symbol = '%', label = paste("Peligro de default"))
         })
         
-        Output <- data.frame(PredicciÛn = prediccion, `Probabilidad de Default` = paste0(round(predict(fit_rf_balanced,test, type = 'prob')$`1`,3)), check.names = FALSE)
+        Output <- data.frame(Predicci√≥n = prediccion, `Probabilidad de Default` = paste0(round(predict(fit_rf_balanced,test, type = 'prob')$`1`,3)), check.names = FALSE)
         
         
     })
@@ -130,9 +131,9 @@ server<- function(input, output, session) {
     # Status/Output Text Box
     output$contents <- renderPrint({
         if (input$submitbutton>0) { 
-            isolate(cat("PredicciÛn completada"))
+            isolate(cat("Predicci√≥n completada"))
         } else {
-            return(cat("La app est· lista para predecir"))
+            return(cat("La app est√° lista para predecir"))
         }
     })
     
